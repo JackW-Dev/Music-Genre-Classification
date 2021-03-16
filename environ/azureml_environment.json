@@ -1,6 +1,6 @@
 {
     "name": "env",
-    "version": "13",
+    "version": "5",
     "environmentVariables": {
         "EXAMPLE_ENV_VAR": "EXAMPLE_VALUE"
     },

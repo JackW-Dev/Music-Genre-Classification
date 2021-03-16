@@ -13,11 +13,14 @@ def init():
 
 def run(raw_data):
     try:
-        data = pd.read_csv(raw_data)
-        data.drop("TrackNum", 1, inplace=True)
-        raw_data = data.iloc[:, 1:5].values
-        labels = data.iloc[:, 0].values
-        prediction = model.predict(raw_data)
+        raw_data = json.loads(raw_data)
+        raw_data = pd.DataFrame(raw_data)
+        data = raw_data.iloc[:, 1:].values
+        labels = raw_data.iloc[:, 0].values
+        print(data[0])
+        print(labels[0])
+        print(data.iloc[0, :])
+        prediction = model.predict(data)
         return json.dumps(prediction.toList())
 
     except Exception as ex:
