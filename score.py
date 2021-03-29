@@ -11,15 +11,14 @@ def init():
     model = joblib.load(model_path)
 
 
-def run(raw_data):
+def run(data):
     try:
-        raw_data = json.loads(raw_data)
-        raw_data = pd.DataFrame(raw_data)
-        data = raw_data.iloc[:, 1:].values
-        labels = raw_data.iloc[:, 0].values
-        print(data[0])
-        print(labels[0])
-        print(data.iloc[0, :])
+        data = pd.DataFrame(json.loads(data))
+        labels = data.iloc[:, 0].values
+        data = data.iloc[:, 1:].values
+        # print(data[0])
+        # print(labels[0])
+        # print(data.iloc[0, :])
         prediction = model.predict(data)
         return json.dumps(prediction.toList())
 
