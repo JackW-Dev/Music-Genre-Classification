@@ -1,7 +1,7 @@
 import json
 import joblib
 import os
-import numpy as np
+import pandas as pd
 
 
 def init():
@@ -11,8 +11,14 @@ def init():
 
 
 def run(raw_data):
-    return raw_data
-    # data = json.loads(raw_data)
-    # data = np.array(data)
-    # pred = model.predict(data)
-    # return json.dumps(pred)
+    json_data = raw_data
+
+    json_dict = json.loads(json_data)
+
+    json_df = pd.DataFrame(eval(json_dict))
+
+    loaded_json_data = json_df.iloc[:, 1:].values
+
+    pred = model.predict(loaded_json_data)
+
+    return json.dumps(pred.tolist())
