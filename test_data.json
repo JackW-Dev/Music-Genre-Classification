@@ -8,5 +8,5 @@
 {\"Genre\":\"Jazz\",\"MFCC\":\"-6.2041306\",\"ZCR\":\"21001\",\"Spectral Centroid\":\"749.3539040730335\",\"Spectral Rolloff\":\"1133.5491136165892\"},
 {\"Genre\":\"Reggae\",\"MFCC\":\"0.6178534\",\"ZCR\":\"46715\",\"Spectral Centroid\":\"1814.0413745530234\",\"Spectral Rolloff\":\"4068.8344579285094\"},
 {\"Genre\":\"Pop\",\"MFCC\":\"4.522958685975581\",\"ZCR\":\"96430\",\"Spectral Centroid\":\"3682.3862053415805\",\"Spectral Rolloff\":\"7567.905024198811\"},
-{\"Genre\":\"Blues\",\"MFCC\":\"3.5510689232796033\",\"ZCR\":\"111010\",\"Spectral Centroid\":\"2503.9454883304625\",\"Spectral Rolloff\":\"5077.381079158207\"},
+{\"Genre\":\"Blues\",\"MFCC\":\"3.5510689232796033\",\"ZCR\":\"111010\",\"Spectral Centroid\":\"2503.9454883304625\",\"Spectral Rolloff\":\"5077.381079158207\"}
 ]"

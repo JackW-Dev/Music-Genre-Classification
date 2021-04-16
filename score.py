@@ -1,24 +1,29 @@
 import json
 import joblib
-import os
 import pandas as pd
+from azureml.core import Model
 
 
 def init():
-    global model
-    model_path = os.path.join(os.getenv("AZUREML_MODEL_DIR"), "knn.pkl")
-    model = joblib.load(model_path)
+    global knn_model
+    global svm_model
+
+    knn_model_path = Model.get_model_path("knn")
+    svm_model_path = Model.get_model_path("svm")
+
+    knn_model = joblib.load(knn_model_path)
+    svm_model = joblib.load(svm_model_path)
 
 
-def run(raw_data):
-    json_data = raw_data
-
+def run(json_data):
     json_dict = json.loads(json_data)
 
     json_df = pd.DataFrame(eval(json_dict))
 
     loaded_json_data = json_df.iloc[:, 1:].values
 
-    pred = model.predict(loaded_json_data)
+    knn_pred = knn_model.predict(loaded_json_data)
 
-    return json.dumps(pred.tolist())
+    svm_pred = svm_model.predict(loaded_json_data)
+
+    return {"KNN": knn_pred.tolist(), "SVM": svm_pred.tolist()}
