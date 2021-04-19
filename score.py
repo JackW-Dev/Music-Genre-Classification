@@ -2,6 +2,7 @@ import json
 import joblib
 import pandas as pd
 from azureml.core import Model
+# from sklearn.metrics import classification_report
 
 
 def init():
@@ -17,13 +18,16 @@ def init():
 
 def run(json_data):
     json_dict = json.loads(json_data)
-
     json_df = pd.DataFrame(eval(json_dict))
-
     loaded_json_data = json_df.iloc[:, 1:].values
+    loaded_json_labels = json_df.iloc[:, 0].values
 
     knn_pred = knn_model.predict(loaded_json_data)
-
     svm_pred = svm_model.predict(loaded_json_data)
 
+    # knn_accuracy = classification_report(loaded_json_labels, knn_pred)
+    # svm_accuracy = classification_report(loaded_json_labels, svm_pred)
+
     return {"KNN": knn_pred.tolist(), "SVM": svm_pred.tolist()}
+
+# , "KNN_Accuracy": knn_accuracy, "SVM_Accuracy": svm_accuracy
