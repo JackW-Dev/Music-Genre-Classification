@@ -4,7 +4,6 @@ import pandas as pd
 from azureml.core import Model
 from sklearn.metrics import roc_auc_score, accuracy_score, f1_score
 
-
 def init():
     global knn_model
     global svm_model
@@ -25,17 +24,20 @@ def run(json_data):
     knn_pred = knn_model.predict(loaded_json_data)
     svm_pred = svm_model.predict(loaded_json_data)
 
+    knn_pred_proba = knn_model.predict_proba(loaded_json_data)
+    svm_pred_proba = svm_model.predict_proba(loaded_json_data)
+
     knn_accuracy = accuracy_score(loaded_json_labels, knn_pred)
     svm_accuracy = accuracy_score(loaded_json_labels, svm_pred)
 
-    # knn_roc = roc_auc_score(loaded_json_labels, knn_pred, multi_class="ovr")
-    # svm_roc = roc_auc_score(loaded_json_labels, svm_pred, multi_class="ovr")
+    knn_auroc = roc_auc_score(loaded_json_labels, knn_pred_proba, multi_class="ovr")
+    svm_auroc = roc_auc_score(loaded_json_labels, svm_pred_proba, multi_class="ovr")
 
-    # knn_f1 = f1_score(loaded_json_labels, knn_pred.tolist())
-    # svm_f1 = f1_score(loaded_json_labels, svm_pred.tolist())
+    knn_f1 = f1_score(loaded_json_labels, knn_pred, average="micro")
+    svm_f1 = f1_score(loaded_json_labels, svm_pred, average="micro")
 
     # The backslash after the comma allows for multiline return statements
-    return {"KNN Prediction": knn_pred.tolist(), "SVM Prediction": svm_pred.tolist()},\
-           {"KNN Accuracy": knn_accuracy, "SVM Accuracy": svm_accuracy}
-    # return { "KNN AUROC": knn_roc, "SVM AUROC": svm_roc}
-    # return {"KNN F1": knn_f1, "SVM F1": svm_f1}
+    return {"KNN Prediction": knn_pred.tolist(), "SVM Prediction": svm_pred.tolist()}, \
+           {"KNN Accuracy": knn_accuracy, "SVM Accuracy": svm_accuracy},\
+           {"KNN AUROC": knn_auroc, "SVM AUROC": svm_auroc},\
+           {"KNN F1": knn_f1, "SVM F1": svm_f1}
