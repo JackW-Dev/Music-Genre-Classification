@@ -37,7 +37,5 @@ def run(json_data):
     svm_f1 = f1_score(loaded_json_labels, svm_pred, average="micro")
 
     # The backslash after the comma allows for multiline return statements
-    return {"KNN Prediction": knn_pred.tolist(), "SVM Prediction": svm_pred.tolist()}, \
-           {"KNN Accuracy": knn_accuracy, "SVM Accuracy": svm_accuracy},\
-           {"KNN AUROC": knn_auroc, "SVM AUROC": svm_auroc},\
-           {"KNN F1": knn_f1, "SVM F1": svm_f1}
+    return {"Genre": loaded_json_labels.tolist(), "KNN Prediction": knn_pred.tolist(), "SVM Prediction": svm_pred.tolist()}, \
+           {"KNN": [knn_accuracy, knn_auroc, knn_f1], "SVM": [svm_accuracy, svm_auroc, svm_f1]}
